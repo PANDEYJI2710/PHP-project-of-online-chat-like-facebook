@@ -1,15 +1,24 @@
 <htmL>
+<?php
+session_start();
+include("include/connection.php");
+ //if(!isset($_SESSION['user_email'])){
+    //header("Location:signin.php");
+
+//}
+//else{ ?>
 <head>
     <title>MY CHAT - HOME</title>
-    <link rel= "stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel= "stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.7.0/css/bootstrap.min.css">
+    <link rel= "stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href= "css/home.css">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
     </head>
 <body>
     <div class= "container main-section">
         <div class= "row">
-            <div class= "col-md-3 col-sm-3 col-xs-12 left sidebar">
+            <div class= "col-md-3 col-sm-3 col-xs-12 left-sidebar">
                 <div class="input-group searchbox">
                     <div class="input-group-btn">
                         <center><a href="include/find_friends.php"><button class="btn btn-default
@@ -27,21 +36,21 @@
                     <!-- getting the user information who is logged in -->
                     <?php
                         $user = $_SESSION['user_email'];
-                        $get_user= "select * from users where user_email='$user'";
-                        $run_user=mysqli_query($con, $get_user);
-                        $row=mysqli_fetch_array($run_user);
+                        $get_user = "select * from users where user_email='$user'";
+                        $run_user = mysqli_query($con, $get_user);
+                        $row = mysqli_fetch_array($run_user);
 
-                        $user_id= $row['user_id'];
+                        $user_id = $row['user_id'];
                         $user_name= $row['user_name'];
 
                     ?>
                     <!-- getting user data on which user clicks -->
                     <?php
-                        if(isset($GET['user_name'])){
-
+                        if(isset($_GET['user_name'])){
+                            
                             global $con;
 
-                            $get_username= $_GET['user_name'];
+                            $get_username = $_GET['user_name'];
                             $get_user = "select * from users where user_name= '$get_username'";
 
                             $run_user= mysqli_query($con, $get_user);
@@ -50,12 +59,13 @@
 
                             $username= $row_user['user_name'];
 
-                            $user_profile_image= $row_user['$user_profile'];
+                            $user_profile_image = $row_user['user_profile'];
                         }
 
-                        $total_messages="select * from users_chat where (sender_username='$user_name
-                            ' AND receiver_username='$username') OR (receiver_username='$user_name' AND sender_username= '$username')";
-                        $run_messages=mysqli_query($con, $total_messages);
+                        $total_messages = "select * from users_chat where (sender_username='$user_name
+                            ' AND receiver_username ='$username') OR (receiver_username='$user_name' 
+                            AND sender_username= '$username')";
+                        $run_messages = mysqli_query($con, $total_messages);
                         $total = mysqli_num_rows($run_messages);
                     ?>
 
@@ -66,7 +76,7 @@
                         <div class= "right-header-detail">
                             <form method="post">
                                 <p><?php echo"$username"; ?></p>
-                                <span><?php echo $total  ?> messages</span>&nbsp &nbsp
+                                <span><?php echo $total;  ?> messages</span>&nbsp &nbsp
                                 <button name="logout" class= "btn btn-danger">Logout</button>
                             </form>
                             <?php
@@ -80,7 +90,7 @@
                     </div>
                 </div>
                 <div class= "row">
-                    <div id= "scrolling to bottom" class= "col-md-12 right-header-contentChat">
+                    <div id= "scrolling_to_bottom" class= "col-md-12 right-header-contentChat">
                         <?php
 
                             $update_msg= mysqli_query($con, "UPDATE users_chat SET msg_status= 'read'
@@ -100,36 +110,38 @@
                         
                             <ul>
 
-                            <?php
-                                if($user_name == $sender_username AND $username == $receiver_username){
+                                <?php
+                                    if($user_name == $sender_username AND $username == 
+                                    $receiver_username){
 
                                     echo"
                                         <li>
-                                            <div class='rightside_chat'>
-                                                <span>$username<small>$msg_date</small></span>
+                                            <div class='rightside-right-chat'>
+                                                <span>$username<small>$msg_date</small></span><br><br>
                                                 <p>$msg_content</p>
                                             </div>
                                         </li>
 
                                     ";
-                                }
+                                    }
 
 
-                                else if($user_name == $receiver_username AND $username == $sender_username){
+                                    else if($user_name == $receiver_username AND $username == 
+                                    $sender_username){
 
                                     echo"
                                         <li>
-                                            <div class='rightside_chat'>
-                                                <span>$username<small>$msg_date</small></span>
+                                            <div class='rightside-left-chat'>
+                                                <span>$username<small>$msg_date</small></span><br><br>
                                                 <p>$msg_content</p>
                                             </div>
                                         </li>
 
                                     ";
-                                }
+                                    }
 
-                            ?>
-                        </ul>
+                                ?>
+                            </ul>
                         <?php
                             }
                         ?>
@@ -139,7 +151,7 @@
                 <div class= "row">
                     <div class = "col-md-12 right-chat-textbox">
                         <form method = "post">
-                            <input type = "text" name = "msg_content" placeholder= "Write Your Message">
+                            <input autocomplete="off" type = "text" name = "msg_content" placeholder= "Write Your Message">
                             <button class= "btn" name= "submit"><i class = "fa fa-telegram" aria-hidden = "true"></i></buttton>
                         </form>
                     </div>
@@ -166,7 +178,7 @@
 
                 echo"
                     <div class = 'alert alert-danger'>
-                        <strong><center>Message could not be sent </center></strong>
+                        <strong><center>Message is too long. Use only 100 characters.</center></strong>
                     </div>
                 ";
 
@@ -183,5 +195,18 @@
         }
 
     ?>
+
+    <script>
+        $('#scrolling_to_bottom').animate({
+            scrollTop: $('#scrolling_to_bottom').get(0).scrollHeight}, 1000);
+        </script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var height = $(window).height();
+        $('.left-chat').css('height', (height - 92) + 'px');
+        $('.right-header-contentChat').css('height', (height - 163) + 'px');
+    });
+    </script>
 </body>
 </html>
+<!-- <?php //} ?>-->
