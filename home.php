@@ -2,11 +2,10 @@
 <?php
 session_start();
 include("include/connection.php");
- //if(!isset($_SESSION['user_email'])){
-    //header("Location:signin.php");
-
-//}
-//else{ ?>
+if(!isset($_SESSION['user_email'])){
+    header("Location:signin.php");
+}
+else{ ?>
 <head>
     <title>MY CHAT - HOME</title>
     <link rel= "stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.7.0/css/bootstrap.min.css">
@@ -209,4 +208,4 @@ include("include/connection.php");
     </script>
 </body>
 </html>
-<!-- <?php //} ?>-->
+<?php } ?>

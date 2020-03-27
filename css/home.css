@@ -34,7 +34,7 @@
 .left-chat ul{
     overflow:hidden;
     padding: 0px;
-}f
+}
 .left-chat ul li{
     list-style:none;
     width:100%;
@@ -176,7 +176,7 @@
     border:15px solid transparent;
     border-bottom-color: #94C2ED;
 } 
-@media only screen and(max-width:320px){
+@media only screen and (max-width:320px){
     .main-section{
         display:none;
     }

@@ -14,8 +14,8 @@
     <div class= "signin-form">
         <form action="" method="post">
             <div class="form-header">
-            <h2>Sign In</h2>
-            <p>Login To MyChat</p>
+                <h2>Sign In</h2>
+                <p>Login To MyChat</p>
             </div>
             <div class="form-group">
                 <label>Email</label>
@@ -25,14 +25,14 @@
                 <label>Password</label>
                 <input type="password" class="form-control" name="pass" placeholder="Password" autocomplete="off" required>
             </div>
-            <div class="small">Forgot Password? <a href="forgot_pass.php">Click Here</a></div><br>
+            <div class="small">Forgot Password? <a href="forgot_pass.php">Click Here</a></div><br> 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block btn-lg" name="sign_in">Sign In</button>
             </div>
-              <?php include("signin_user.php"); ?> 
+            <?php include("signin_user.php"); ?> 
         </form>
-        <div class="text-center small" style="color: #67428B;"> Don't Have An Account? <a href= "signup.php">Create One</a>
-        </div>
+        <div class="text-center small" style="color: #67428B;"> Don't Have An Account? <a href="
+        signup.php">Create One</a></div>
     </div>      
 
 </body>
