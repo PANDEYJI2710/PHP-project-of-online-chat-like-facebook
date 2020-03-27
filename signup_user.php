@@ -39,7 +39,7 @@ include("include/connection.php");
                 $profile_pic= "images/satyam2.png";
 
             $insert= "insert into users (user_name, user_pass, user_email, user_profile, user_country,
-            user_gender) values('$name', '$pass', '$email', '$profile_pic', '$country', 'gener')";   
+            user_gender) values('$name', '$pass', '$email', '$profile_pic', '$country', '$gender')";   
             
             $query= mysqli_query($con, $insert);
 
