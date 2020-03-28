@@ -33,10 +33,10 @@ include("include/connection.php");
         }
 
         if($rand == 1)
-            $profile_pic= "images/satyam.png";
+            $profile_pic= "images/satyam.jpg";
 
             else if($rand == 2){
-                $profile_pic= "images/satyam2.png";
+                $profile_pic= "images/satyam2.jpg";
 
             $insert= "insert into users (user_name, user_pass, user_email, user_profile, user_country,
             user_gender) values('$name', '$pass', '$email', '$profile_pic', '$country', '$gender')";   

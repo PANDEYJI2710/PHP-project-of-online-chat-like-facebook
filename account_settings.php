@@ -25,7 +25,7 @@ else{ ?>
         </div>
         <?php
             $user = $_SESSION['user_email'];
-            $get_user = "select * from users where user-email='$user'";
+            $get_user = "select * from users where user_email='$user'";
             $run_user = mysqli_query($con, $get_user);
             $row = mysqli_fetch_array($run_user);
 
@@ -42,7 +42,7 @@ else{ ?>
             <form action = "" method= "post" enctype= "multipart/form-data">
                 <table class="table table-bordered table-hover">
                     <tr align="center">
-                        <td colspan="6" class= "active"><h2>Change Account Settings</h2></td>           
+                        <td colspan="6" class= "active"><h2>Change Account Settings</h2></td>
                     </tr>
                     <tr>
                         <td style="font-weight: bold;">Change Your Username</td>
@@ -50,9 +50,7 @@ else{ ?>
                             <input type="text" name="u_name" class="form-control" required value="<?php echo $user_name;?>" />
                         </td>
                     </tr>
-                    <tr><td></td><td><a class="btn btn-default" style="text-decoration: none; font-size: 15px;" href="upload.php">
-                    <i class="fa fa-user" aria-hidden="true"></i>Change Profile</a></td></tr>
-
+                    <tr><td></td><td><a class="btn btn-default" style="text-decoration: none; font-size: 15px;" href="upload.php"><i class="fa fa-user" aria-hidden="true"></i>Change Profile</a></td></tr>
                     <tr>
                         <td style="font-weight: bold;">Change Your Email</td>
                         <td>
@@ -60,13 +58,14 @@ else{ ?>
                         </td>
                     </tr>
                     <tr>
-                        <td style="font-weight: bold">Gender</td>
+                        <td style="font-weight: bold">Country</td>
                         <td>
-                            <select class="form-control" name="u_gender">
-                                <option><?php echo $user_gender; ?></option>
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Others</option>
+                            <select class="form-control" name="u_country">
+                                <option><?php echo $user_country; ?></option>
+                                <option>USA</option>
+                                <option>UK</option>
+                                <option>UAE</option>
+                                <option>Saudi Arabia</option>
                             </select>
                         </td>
                     </tr>
@@ -75,7 +74,6 @@ else{ ?>
                         <td>
                             <select class="form-control" name="u_gender">
                                 <option><?php echo $user_gender; ?></option>
-                                <option>Male</option>
                                 <option>Female</option>
                                 <option>Others</option>
                             </select>
@@ -85,7 +83,7 @@ else{ ?>
                         <td style="font-weight:bold";>Forgotten Password</td>
                         <td>
                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">Forgotten Password</button>
-
+                            
                             <div id="myModal" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -100,10 +98,51 @@ else{ ?>
                                                 <pre>Answer the above question we will ask you this question if you forget your <br>Password.</pre>
                                                 <br><br>
                                             </form>
-                                            <?php ?>
-                                        </div>    
+                                            <?php
+
+                                                if(isset($_POST['sub'])){
+                                                    $bfn = htmlentities($_POST['content']);
+
+                                                    if($bfn == ''){
+
+                                                        echo "<script>alert('Please Enter Something.')</script>";
+                                                        echo "<script>window.open('account_settings.php', '_self')</script>";
+                                                        exit();
+                                                    }else{
+                                                        $update = "update users set forgotten_answer='$bfn' whereuser_email='$user'";
+
+                                                        $run = mysqli_query($con, $update);
+
+                                                        if($run){
+                                                            
+                                                        echo "<script>alert('Working...')</script>";
+                                                        echo "<script>window.open('account_settings.php', '_self')</script>";
+
+                                                        }else{
+                                                            
+                                                        echo "<script>alert('Eroor updating information.')</script>";
+                                                        echo "<script>window.open('account_settings.php', '_self')</script>";
+                                                        }
+
+
+                                                    }
+                                                }
+
+                                            
+                                            
+                                            ?>
+                                            
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal"></button>
+                                        </div> 
                             </div>
                         </td>
+                    </tr>
+                    <tr><td></td><td><a class="btn btn-default" style="text-decoration: none; font-size: 15px;" href="change_password.php"><i class="fa fa-key fa-fw" aria-hidden="true"></i>Change Password</a></td></tr>
+                    <tr align="center">
+                        <td colspan="6" class= "active"><h2>Change Account Settings</h2></td>
+                            <input type=""  
                     </tr>
                 </table>
             </form>
